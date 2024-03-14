@@ -1,0 +1,66 @@
+import discord
+import requests
+import json
+
+from ossapi import OssapiV1
+from discord.ext import commands
+
+#
+intents = discord.Intents.default()
+intents.message_content = True
+bot = commands.Bot(command_prefix='#', intents=intents)
+
+
+
+api = OssapiV1("")
+User = ""
+userdata: int
+
+
+@bot.command()
+async def oset(ctx, *, userdata):
+    global User
+    
+
+
+    User = api.get_user(user=userdata).username
+    await ctx.send("Welcome " + User)
+print(User)
+
+
+@bot.command()
+async def stats(ctx):
+    global api
+    await ctx.send("`Here are your daily stats " + api.get_user(user=User).username + "!`")
+    await ctx.send("` ---------------------------------------------------------- `")
+    await ctx.send("`Your Rank: #" + str(api.get_user(user=User).rank) + "!`")
+    await ctx.send("`PP: " + str(api.get_user(user=User).pp_raw))
+
+
+@bot.command()
+async def ping(ctx):
+    
+    await ctx.send('lol')
+
+
+
+
+
+
+@bot.command()
+async def tst(ctx):
+    await ctx.send('hiiiiiiiii')
+
+
+f = open("Token.txt", "r")
+Token = f.read()
+
+print(Token)
+Token = f.read()
+print(Token)
+
+#---------------
+ 
+
+bot.run("")
+f.close()
